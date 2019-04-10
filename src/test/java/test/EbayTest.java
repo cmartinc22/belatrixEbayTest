@@ -2,34 +2,32 @@ package test;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import page.EbaySearch;
-import page.ResultPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import page.EbaySearch;
+import page.ResultPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class test {
+public class EbayTest {
     WebDriver driver;
     EbaySearch pageEbay;
     ResultPage pageResults;
 
     @Before
-    public void setup(){
-        System.setProperty("webdriver.gecko.driver","src/geckodriver.exe");
+    public void setup() {
+        System.setProperty("webdriver.gecko.driver", "src/geckodriver.exe");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
-    /**
-     */
-    @Test
-    public void test_bellatrix(){
+
+    @org.junit.Test
+    public void test_bellatrix() {
         //Create Ebay Page object
         pageEbay = new EbaySearch(driver);
 
@@ -52,5 +50,4 @@ public class test {
                 .orderBy("Precio + Envío: más alto primero")
                 .printResults();
     }
-
 }
