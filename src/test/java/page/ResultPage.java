@@ -14,16 +14,15 @@ import static utils.Utils.*;
 
 public class ResultPage {
 
-    WebDriver driver;
-    List<String> list = new ArrayList<String>();
-    List<WebElement> top5Items = new ArrayList<>();
-    List<WebElement> allResults = new ArrayList<>();
+    private WebDriver driver;
+    private List<WebElement> top5Items = new ArrayList<>();
+    private List<WebElement> allResults = new ArrayList<>();
 
-    By txtBrandFilter = By.className("x-searchable-list__textbox__aspect-Brand");
-    By lblResultsCount = By.className("srp-controls__count-heading");
-    By btnOrderBy = By.className("srp-controls__control--legacy");
-    By resultItems = By.className("s-item");
-    By resultTop5Items = By.xpath("//div[@id='srp-river-main']/div/ul/li[position() <= 5]");
+    private By txtBrandFilter = By.className("x-searchable-list__textbox__aspect-Brand");
+    private By lblResultsCount = By.className("srp-controls__count-heading");
+    private By btnOrderBy = By.className("srp-controls__control--legacy");
+    private By resultItems = By.className("s-item");
+    private By resultTop5Items = By.xpath("//div[@id='srp-river-main']/div/ul/li[position() <= 5]");
 
     public ResultPage(WebDriver driver) {
         this.driver = driver;
@@ -73,7 +72,7 @@ public class ResultPage {
      * @param items Items to print
      */
     private void printElements(List<WebElement> items) {
-        if (items.size() >= 0) {
+        if (items.size() > 0) {
             for (WebElement item : items) {
                 System.out.println("Item: " + extractNameFromResultItemSearch(item) + "  Price: " + extractPriceFromItemAsString(item));
             }
@@ -85,7 +84,6 @@ public class ResultPage {
     /**
      * Get the first 5 results from search and store in array
      *
-     * @return this to chain calls
      */
     private void getTop5Results() {
         this.top5Items = driver.findElements(resultTop5Items);
@@ -94,7 +92,6 @@ public class ResultPage {
     /**
      * Get the first 5 results from search and store iun array
      *
-     * @return
      */
     private void getResults() {
         this.allResults = driver.findElements(resultItems);
@@ -169,8 +166,6 @@ public class ResultPage {
 
     /**
      * Assert the ascendant order of a list of prices
-     *
-     * @return this to chain calls
      */
     private void assertAscendantOrderPrice(List<Double> prices) {
         List<Double> orderedListPrices = Arrays.asList(new Double[prices.size()]);

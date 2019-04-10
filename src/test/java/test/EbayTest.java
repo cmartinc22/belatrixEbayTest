@@ -2,6 +2,7 @@ package test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import page.EbaySearch;
@@ -10,9 +11,9 @@ import page.ResultPage;
 import java.util.concurrent.TimeUnit;
 
 public class EbayTest {
-    WebDriver driver;
-    EbaySearch pageEbay;
-    ResultPage pageResults;
+    private WebDriver driver;
+    private EbaySearch pageEbay;
+    private ResultPage pageResults;
 
     @Before
     public void setup() {
@@ -26,7 +27,7 @@ public class EbayTest {
         driver.quit();
     }
 
-    @org.junit.Test
+    @Test
     public void test_bellatrix() {
         //Create Ebay Page object
         pageEbay = new EbaySearch(driver);

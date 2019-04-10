@@ -6,11 +6,10 @@ import org.openqa.selenium.WebDriver;
 public class EbaySearch {
 
 
-    WebDriver driver;
-    String url = "http://www.ebay.com";
+    private WebDriver driver;
 
-    By txtSearchBar = By.id("gh-ac");
-    By btnSearch = By.id("gh-btn");
+    private By txtSearchBar = By.id("gh-ac");
+    private By btnSearch = By.id("gh-btn");
 
     public EbaySearch(WebDriver driver) {
         this.driver = driver;
@@ -18,10 +17,10 @@ public class EbaySearch {
 
     /**
      * Navigate to ebay URL
-     * @return
+     * @return this to chain calls
      */
     public EbaySearch goToEbay() {
-        driver.get(url);
+        driver.get("http://www.ebay.com");
         return this;
     }
 

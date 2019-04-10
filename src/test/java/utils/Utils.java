@@ -23,7 +23,7 @@ public class Utils {
 
     /**
      * Extract from an Item the Price as String
-     * @param item
+     * @param item Search Result Item
      * @return String price
      */
     public static String extractPriceFromItemAsString(WebElement item) {
