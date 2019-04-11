@@ -4,13 +4,17 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.Enums;
+import utils.WebElementNameComparator;
+import utils.WebElementPriceComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static utils.Utils.*;
+import static utils.Utils.extractNameFromResultItemSearch;
+import static utils.Utils.extractPriceFromItemAsString;
 
 public class ResultPage {
 
@@ -83,7 +87,6 @@ public class ResultPage {
 
     /**
      * Get the first 5 results from search and store in array
-     *
      */
     private void getTop5Results() {
         this.top5Items = driver.findElements(resultTop5Items);
@@ -91,7 +94,6 @@ public class ResultPage {
 
     /**
      * Get the first 5 results from search and store iun array
-     *
      */
     private void getResults() {
         this.allResults = driver.findElements(resultItems);
@@ -167,11 +169,11 @@ public class ResultPage {
     /**
      * Assert the ascendant order of a list of prices
      */
-    private void assertAscendantOrderPrice(List<Double> prices) {
-        List<Double> orderedListPrices = Arrays.asList(new Double[prices.size()]);
-        Collections.copy(orderedListPrices, prices);
-        Collections.sort(orderedListPrices);
-        Assert.assertArrayEquals(orderedListPrices.toArray(), prices.toArray());
+    private void assertAscendantOrderPrice(List<WebElement> items) {
+        List<WebElement> orderedListItems = Arrays.asList(new WebElement[items.size()]);
+        Collections.copy(orderedListItems, items);
+        orderedListItems.sort(new WebElementPriceComparator(Enums.ORDER_BY.ASC.getValue()));
+        Assert.assertArrayEquals("The Order of first 5 results aren´t in ascending order", orderedListItems.toArray(), items.toArray());
     }
 
     /**
@@ -181,7 +183,23 @@ public class ResultPage {
      */
     public ResultPage assertTop5AscendantPrice() {
         getTop5Results();
-        assertAscendantOrderPrice(extractPriceItemsInArray(top5Items));
+        assertAscendantOrderPrice(top5Items);
+        return this;
+    }
+
+    public ResultPage printResultByNameAscendant() {
+        getTop5Results();
+        top5Items.sort(new WebElementNameComparator(Enums.ORDER_BY.ASC.getValue()));
+        System.out.println("-------------SORTED BY ASCENDING NAME------------");
+        printElements(top5Items);
+        return this;
+    }
+
+    public ResultPage printResultsByPriceDescendant() {
+        getTop5Results();
+        top5Items.sort(new WebElementPriceComparator(Enums.ORDER_BY.DESC.getValue()));
+        System.out.println("-------------SORTED BY DESCENDING PRICE------------");
+        printElements(top5Items);
         return this;
     }
 }
